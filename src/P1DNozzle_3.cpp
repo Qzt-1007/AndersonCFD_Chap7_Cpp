@@ -36,11 +36,11 @@ void exportToFile(const string& filename,
     }
 
     fout << fixed << setprecision(3);
-    fout << "No\tX\tA\trho\tV\tT\tp\tMa\tmdot\tU1\tU2\tU3\n";
+    fout << "No,X,A,rho,V,T,p,Ma,mdot,U1,U2,U3\n";
     for (size_t i = 0; i < X.size(); ++i) {
-        fout << i + 1 << '\t' << X[i] << '\t' << A[i] << '\t' << rho[i] << '\t'
-             << V[i] << '\t' << T[i] << '\t' << p[i] << '\t' << Ma[i] << '\t'
-             << mdot[i] << '\t' << U1[i] << '\t' << U2[i] << '\t' << U3[i] << '\n';
+        fout << i + 1 << ',' << X[i] << ',' << A[i] << ',' << rho[i] << ','
+             << V[i] << ',' << T[i] << ',' << p[i] << ',' << Ma[i] << ','
+             << mdot[i] << ',' << U1[i] << ',' << U2[i] << ',' << U3[i] << '\n';
     }
 }
 
