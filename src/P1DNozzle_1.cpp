@@ -8,7 +8,7 @@
 
 using namespace std;
 
-constexpr double gamma = 1.4;
+constexpr double Gamma = 1.4;
 constexpr double R = 287.0;
 constexpr double cfl = 0.5;
 constexpr double deltaX = 0.1;
@@ -57,7 +57,7 @@ int main(){
         mdot[i] = rho[i] * V[i] * A[i];
     }
 
-    exportToFile("../output/Q1_initval.csv",X,A,rho,V,T,p,Ma,mdot,cellNum);
+    exportToFile("./output/Q1_initval.csv",X,A,rho,V,T,p,Ma,mdot,cellNum);
 
     for (int j=0;j<timesteps;j++){
     //Maccormack
@@ -74,9 +74,9 @@ int main(){
 		- rho[i] * (V[i + 1] - V[i]) / deltaX
 		- rho[i] * V[i] * (log(A[i + 1]) - log(A[i])) / deltaX;//7-51,p215
 	dVdt[i] = -V[i] * (V[i + 1] - V[i]) / deltaX
-		- (1 / gamma) * ((T[i + 1] - T[i]) / deltaX + T[i] / rho[i] * (rho[i + 1] - rho[i]) / deltaX);//7-52
+		- (1 / Gamma) * ((T[i + 1] - T[i]) / deltaX + T[i] / rho[i] * (rho[i + 1] - rho[i]) / deltaX);//7-52
 	dTdt[i] = -V[i] * (T[i + 1] - T[i]) / deltaX
-		- (gamma - 1) * T[i] * ((V[i + 1] - V[i]) / deltaX + V[i] * (log(A[i + 1]) - log(A[i])) / deltaX);//7-53
+		- (Gamma - 1) * T[i] * ((V[i + 1] - V[i]) / deltaX + V[i] * (log(A[i + 1]) - log(A[i])) / deltaX);//7-53
 	rhop[i] = rho[i] + drhodt[i] * deltaT;//7-54,p215
 	Vp[i] = V[i] + dVdt[i] * deltaT;//7-55
 	Tp[i] = T[i] + dTdt[i] * deltaT;//7-56
@@ -88,9 +88,9 @@ int main(){
 		- rhop[i] * (Vp[i] - Vp[i - 1]) / deltaX
 		- rhop[i] * Vp[i] * (log(A[i]) - log(A[i - 1])) / deltaX;//7-57,p216
 	dVpdt[i] = -Vp[i] * (Vp[i] - Vp[i - 1]) / deltaX
-		- (1 / gamma) * ((Tp[i] - Tp[i - 1]) / deltaX + Tp[i] / rhop[i] * (rhop[i] - rhop[i - 1]) / deltaX);//7-58
+		- (1 / Gamma) * ((Tp[i] - Tp[i - 1]) / deltaX + Tp[i] / rhop[i] * (rhop[i] - rhop[i - 1]) / deltaX);//7-58
 	dTpdt[i] = -Vp[i] * (Tp[i] - Tp[i - 1]) / deltaX
-		- (gamma - 1) * Tp[i] * ((Vp[i] - Vp[i - 1]) / deltaX + Vp[i] * (log(A[i]) - log(A[i - 1])) / deltaX);//7-59
+		- (Gamma - 1) * Tp[i] * ((Vp[i] - Vp[i - 1]) / deltaX + Vp[i] * (log(A[i]) - log(A[i - 1])) / deltaX);//7-59
 	drhodtav[i] = (drhodt[i] +drhopdt[i])/2;//7-60,p215
 	dVdtav[i] = (dVdt[i] +dVpdt[i])/2;//7-61
 	dTdtav[i] = (dTdt[i] +dTpdt[i])/2;//7-62
@@ -117,12 +117,12 @@ int main(){
     mdot[cellNum] = rho[cellNum] * V[cellNum] * A[cellNum];
 
     if(j==0){
-       exportToFile("../output/Q1_iteration1.csv",X,A,rho,V,T,p,Ma,mdot,cellNum);
+       exportToFile("./output/Q1_iteration1.csv",X,A,rho,V,T,p,Ma,mdot,cellNum);
     }
     }
 
     //输出timesteps步后的数据
-    exportToFile("../output/Q1_final.csv",X,A,rho,V,T,p,Ma,mdot,cellNum);
+    exportToFile("./output/Q1_final.csv",X,A,rho,V,T,p,Ma,mdot,cellNum);
 
     return 0;
 }
